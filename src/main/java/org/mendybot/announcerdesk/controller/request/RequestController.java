@@ -19,6 +19,8 @@ import org.mendybot.announcerdesk.model.request.Server;
 
 public class RequestController
 {
+  public static final int DEFAULT_SOUND_LEVEL = 65;
+  public static final String P_SOUND_LEVEL = "sound-level";
   public static final String P_SAY_TEXT = "say";
   public static final String P_SAY_TEXT_REPEAT = "say-repeat";
   public static final String P_DISPLAY_TEXT = "display";
@@ -32,9 +34,10 @@ public class RequestController
     this.model = model;
   }
 
-  public void announce(List<Server> servers, String sayText, String displayText, String displayFont, Color displayColor, Integer displayRepeat)
+  public void announce(List<Server> servers, int soundLevel, String sayText, String displayText, String displayFont, Color displayColor, Integer displayRepeat)
   {
     JSONObject json = new JSONObject();
+    json.put(P_SOUND_LEVEL, soundLevel);
     json.put(P_SAY_TEXT, sayText);
     json.put(P_SAY_TEXT_REPEAT, 1);
     json.put(P_DISPLAY_TEXT, displayText);

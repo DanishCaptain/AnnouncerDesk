@@ -28,6 +28,7 @@ public class RequestPanel extends JPanel implements ServersListener, ActionListe
   private RequestController controller;
   private DefaultListModel<Server> mServers = new DefaultListModel<>();
   private JList<Server> lServers = new JList<>(mServers);
+  private JTextField tfSoundLevel = new JTextField(Integer.toString(RequestController.DEFAULT_SOUND_LEVEL));
   private JTextField tfSayText = new JTextField(60);
   private JComboBox cbPlay = new JComboBox();
   private JTextField tfDisplayText = new JTextField(60);
@@ -83,6 +84,8 @@ public class RequestPanel extends JPanel implements ServersListener, ActionListe
     JPanel pSound = new JPanel();
     pSound.setBorder(new TitledBorder("Sound:"));
     add(pSound);
+    pSound.add(new JLabel("level %: "));
+    pSound.add(tfSoundLevel);
     pSound.add(new JLabel("say: "));
     pSound.add(tfSayText);
     pSound.add(new JLabel("play: "));
@@ -127,12 +130,13 @@ public class RequestPanel extends JPanel implements ServersListener, ActionListe
   public void actionPerformed(ActionEvent e)
   {
     List<Server> servers = lServers.getSelectedValuesList();
+    int soundLevel =  Integer.parseInt(tfSoundLevel.getText());
     String sayText = tfSayText.getText();
     String displayText = tfDisplayText.getText();
     String displayFont = (String) cbDisplayFonts.getSelectedItem();
     Color displayColor = (Color) cbDisplayColors.getSelectedItem();
     Integer displayRepeat = (Integer) cbDisplayRepeat.getSelectedItem();
-    controller.announce(servers, sayText, displayText, displayFont, displayColor, displayRepeat);
+    controller.announce(servers, soundLevel, sayText, displayText, displayFont, displayColor, displayRepeat);
   }
 
   @Override

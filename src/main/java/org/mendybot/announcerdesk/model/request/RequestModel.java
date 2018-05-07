@@ -16,13 +16,17 @@ public class RequestModel
 
   private void init()
   {
+    /*
     addServer("Home", "http", "localhost", 8000);
     addServer("Phoenix", "http", "192.168.100.33", 8000);
     addServer("New York", "http", "192.168.100.34", 8000);
     addServer("Las Angeles", "http", "192.168.100.35", 8000);
     addServer("Denver", "http", "192.168.100.36", 8000);
     addServer("Seattle", "http", "192.168.100.37", 8000);
-    
+    */
+    addServer("Home", "http", "localhost", 8000);
+    addServer("Phoenix", "http", "192.168.1.182", 8000);
+
     
     /*
 ANTHEM.wav  ASSEMBLY.wav  MESSCALL.wav
