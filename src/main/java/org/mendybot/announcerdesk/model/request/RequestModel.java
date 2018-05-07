@@ -22,6 +22,11 @@ public class RequestModel
     addServer("Las Angeles", "http", "192.168.100.35", 8000);
     addServer("Denver", "http", "192.168.100.36", 8000);
     addServer("Seattle", "http", "192.168.100.37", 8000);
+    
+    
+    /*
+ANTHEM.wav  ASSEMBLY.wav  MESSCALL.wav
+     */
   }
 
   private void addServer(String name, String a, String host, int port)
