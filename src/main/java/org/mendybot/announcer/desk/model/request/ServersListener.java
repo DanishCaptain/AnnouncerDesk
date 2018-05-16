@@ -1,4 +1,4 @@
-package org.mendybot.announcerdesk.model.request;
+package org.mendybot.announcer.desk.model.request;
 
 public interface ServersListener
 {

@@ -1,4 +1,4 @@
-package org.mendybot.announcerdesk.view.request;
+package org.mendybot.announcer.desk.view.request;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -15,11 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import org.mendybot.announcerdesk.controller.request.RequestController;
-import org.mendybot.announcerdesk.model.request.RequestModel;
-import org.mendybot.announcerdesk.model.request.RequestStatusListener;
-import org.mendybot.announcerdesk.model.request.Server;
-import org.mendybot.announcerdesk.model.request.ServersListener;
+import org.mendybot.announcer.desk.controller.request.RequestController;
+import org.mendybot.announcer.desk.model.request.RequestModel;
+import org.mendybot.announcer.desk.model.request.RequestStatusListener;
+import org.mendybot.announcer.desk.model.request.Server;
+import org.mendybot.announcer.desk.model.request.ServersListener;
 
 public class RequestPanel extends JPanel implements ServersListener, ActionListener, RequestStatusListener
 {

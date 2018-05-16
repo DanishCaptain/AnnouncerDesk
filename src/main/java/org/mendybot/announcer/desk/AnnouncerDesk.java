@@ -1,4 +1,4 @@
-package org.mendybot.announcerdesk;
+package org.mendybot.announcer.desk;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -7,9 +7,9 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
-import org.mendybot.announcerdesk.controller.request.RequestController;
-import org.mendybot.announcerdesk.model.request.RequestModel;
-import org.mendybot.announcerdesk.view.request.RequestPanel;
+import org.mendybot.announcer.desk.controller.request.RequestController;
+import org.mendybot.announcer.desk.model.request.RequestModel;
+import org.mendybot.announcer.desk.view.request.RequestPanel;
 
 public class AnnouncerDesk
 {

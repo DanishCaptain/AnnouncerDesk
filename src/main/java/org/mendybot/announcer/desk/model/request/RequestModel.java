@@ -1,4 +1,4 @@
-package org.mendybot.announcerdesk.model.request;
+package org.mendybot.announcer.desk.model.request;
 
 import java.util.ArrayList;
 import java.util.List;

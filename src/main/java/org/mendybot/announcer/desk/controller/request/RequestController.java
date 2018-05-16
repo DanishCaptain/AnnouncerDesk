@@ -1,4 +1,4 @@
-package org.mendybot.announcerdesk.controller.request;
+package org.mendybot.announcer.desk.controller.request;
 
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -10,12 +10,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.json.JSONObject;
-import org.mendybot.announcerdesk.model.request.RequestModel;
-import org.mendybot.announcerdesk.model.request.Server;
+import org.mendybot.announcer.desk.model.request.RequestModel;
+import org.mendybot.announcer.desk.model.request.Server;
 
 public class RequestController
 {
