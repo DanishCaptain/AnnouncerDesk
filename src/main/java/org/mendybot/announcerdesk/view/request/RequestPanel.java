@@ -8,7 +8,9 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -27,13 +29,14 @@ public class RequestPanel extends JPanel implements ServersListener, ActionListe
   private RequestModel model;
   private RequestController controller;
   private DefaultListModel<Server> mServers = new DefaultListModel<>();
+  private JCheckBox cbAlarm = new JCheckBox();
   private JList<Server> lServers = new JList<>(mServers);
   private JTextField tfSoundLevel = new JTextField(Integer.toString(RequestController.DEFAULT_SOUND_LEVEL));
   private JTextField tfSayText = new JTextField(60);
   private JComboBox cbPlay = new JComboBox();
   private JTextField tfDisplayText = new JTextField(60);
   private JComboBox<Integer> cbDisplayRepeat = new JComboBox<>();
-  private JComboBox<Color> cbDisplayColors = new JComboBox<>();
+  private JComboBox<DisplayColor> cbDisplayColors = new JComboBox<>();
   private JComboBox<String> cbDisplayFonts = new JComboBox<>();
 
   private DefaultListModel<String> mStatus = new DefaultListModel<>();
@@ -45,6 +48,8 @@ public class RequestPanel extends JPanel implements ServersListener, ActionListe
   {
     this.model = model;
     this.controller = controller;
+    
+    cbAlarm.setSelected(true);
     
     for (int i=1; i<=10; i++)
     {
@@ -60,17 +65,17 @@ public class RequestPanel extends JPanel implements ServersListener, ActionListe
 //    5x8.bdf    6x13O.bdf  7x14B.bdf  9x15B.bdf  clR6x12.bdf
 //    6x10.bdf   6x9.bdf    7x14.bdf   9x15.bdf   helvR12.bdf
         
-    cbDisplayColors.addItem(Color.WHITE);
-    cbDisplayColors.addItem(Color.RED);
-    cbDisplayColors.addItem(Color.BLUE);
-    cbDisplayColors.addItem(Color.YELLOW);
-    cbDisplayColors.addItem(Color.GREEN);
-    cbDisplayColors.addItem(Color.YELLOW);
-    cbDisplayColors.addItem(Color.CYAN);
-    cbDisplayColors.addItem(Color.GRAY);
-    cbDisplayColors.addItem(Color.DARK_GRAY);
-    cbDisplayColors.addItem(Color.MAGENTA);
-    cbDisplayColors.addItem(Color.ORANGE);
+    cbDisplayColors.addItem(new DisplayColor("White", Color.WHITE));
+    cbDisplayColors.addItem(new DisplayColor("Red", Color.RED));
+    cbDisplayColors.addItem(new DisplayColor("Blue", Color.BLUE));
+    cbDisplayColors.addItem(new DisplayColor("Yellow", Color.YELLOW));
+    cbDisplayColors.addItem(new DisplayColor("Green", Color.GREEN));
+    cbDisplayColors.addItem(new DisplayColor("Yellow", Color.YELLOW));
+    cbDisplayColors.addItem(new DisplayColor("Cyan", Color.CYAN));
+    cbDisplayColors.addItem(new DisplayColor("Gray", Color.GRAY));
+    cbDisplayColors.addItem(new DisplayColor("Dark Gray", Color.DARK_GRAY));
+    cbDisplayColors.addItem(new DisplayColor("Magenta", Color.MAGENTA));
+    cbDisplayColors.addItem(new DisplayColor("Orange", Color.ORANGE));
     cbDisplayColors.setSelectedIndex(0);
     
     
@@ -80,6 +85,8 @@ public class RequestPanel extends JPanel implements ServersListener, ActionListe
     pServers.setBorder(new TitledBorder("Announcement Pods:"));
     add(pServers);
     pServers.add(lServers);
+    pServers.add(new JLabel("Is Alarm: "));
+    pServers.add(cbAlarm);
 
     JPanel pSound = new JPanel();
     pSound.setBorder(new TitledBorder("Sound:"));
@@ -93,20 +100,21 @@ public class RequestPanel extends JPanel implements ServersListener, ActionListe
 
     JPanel pDisplay = new JPanel();
     pDisplay.setBorder(new TitledBorder("Display:"));
+    pDisplay.setLayout(new BoxLayout(pDisplay, BoxLayout.Y_AXIS));
     add(pDisplay);
-    add(cbDisplayFonts);
-    add(cbDisplayColors);
-    add(cbDisplayRepeat);
+    register(pDisplay, "Font:", cbDisplayFonts);
+    register(pDisplay, "Font Color:", cbDisplayColors);
+    register(pDisplay, "Repeat:", cbDisplayRepeat);
 
     JPanel pText = new JPanel();
     pText.setBorder(new TitledBorder("Text:"));
-    add(pText);
+    pDisplay.add(pText);
     pText.add(new JLabel("display: "));
     pText.add(tfDisplayText);
 
     JPanel pImage = new JPanel();
     pImage.setBorder(new TitledBorder("Image:"));
-    add(pImage);
+    pDisplay.add(pImage);
     
     JPanel pButtons = new JPanel();
     pButtons.setBorder(new TitledBorder("Commands:"));
@@ -120,6 +128,17 @@ public class RequestPanel extends JPanel implements ServersListener, ActionListe
     model.addRequestStatusListener(this);
 }
 
+  private void register(JPanel panel, String lbl, JComponent component)
+  {
+    JPanel p = new JPanel();
+    JPanel pp = new JPanel();
+    p.add(pp);
+    pp.setLayout(new BoxLayout(pp, BoxLayout.X_AXIS));
+    pp.add(new JLabel(lbl));
+    pp.add(component);
+    panel.add(p);    
+  }
+
   @Override
   public void addNew(Server s)
   {
@@ -130,13 +149,14 @@ public class RequestPanel extends JPanel implements ServersListener, ActionListe
   public void actionPerformed(ActionEvent e)
   {
     List<Server> servers = lServers.getSelectedValuesList();
+    boolean isAlarm = cbAlarm.isSelected();
     int soundLevel =  Integer.parseInt(tfSoundLevel.getText());
     String sayText = tfSayText.getText();
     String displayText = tfDisplayText.getText();
     String displayFont = (String) cbDisplayFonts.getSelectedItem();
-    Color displayColor = (Color) cbDisplayColors.getSelectedItem();
+    DisplayColor displayColor = (DisplayColor) cbDisplayColors.getSelectedItem();
     Integer displayRepeat = (Integer) cbDisplayRepeat.getSelectedItem();
-    controller.announce(servers, soundLevel, sayText, displayText, displayFont, displayColor, displayRepeat);
+    controller.announce(servers, isAlarm, soundLevel, sayText, displayText, displayFont, displayColor.getColor(), displayRepeat);
   }
 
   @Override

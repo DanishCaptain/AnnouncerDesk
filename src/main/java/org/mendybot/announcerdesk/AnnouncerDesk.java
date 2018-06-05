@@ -7,9 +7,15 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+import org.mendybot.announcerdesk.controller.announcement.AnnouncementController;
 import org.mendybot.announcerdesk.controller.request.RequestController;
+import org.mendybot.announcerdesk.controller.status.StatusController;
+import org.mendybot.announcerdesk.model.announcement.AnnouncementModel;
 import org.mendybot.announcerdesk.model.request.RequestModel;
+import org.mendybot.announcerdesk.model.status.StatusModel;
+import org.mendybot.announcerdesk.view.announcement.AnnouncementsPanel;
 import org.mendybot.announcerdesk.view.request.RequestPanel;
+import org.mendybot.announcerdesk.view.status.StatusPanel;
 
 public class AnnouncerDesk
 {
@@ -22,11 +28,17 @@ public class AnnouncerDesk
     JTabbedPane tabs = new JTabbedPane();
     frame.add(tabs, BorderLayout.CENTER);
 
-    RequestModel aModel = new RequestModel();
-    RequestController aController = new RequestController(aModel);
+    StatusModel sModel = new StatusModel();
+    StatusController sController = new StatusController(sModel);
+    AnnouncementModel aModel = new AnnouncementModel();
+    AnnouncementController aController = new AnnouncementController(aModel);
+    RequestModel rModel = new RequestModel();
+    RequestController rController = new RequestController(rModel);
     
     
-    tabs.add("requests", new RequestPanel(aModel, aController));
+    tabs.add("status", new StatusPanel(sModel, sController));
+    tabs.add("announcements", new AnnouncementsPanel(aModel, aController));
+    tabs.add("requests", new RequestPanel(rModel, rController));
 
     Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
     frame.setSize(d.width, d.height-40);

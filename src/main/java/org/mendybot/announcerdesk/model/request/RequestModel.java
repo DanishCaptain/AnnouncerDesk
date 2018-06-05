@@ -24,9 +24,10 @@ public class RequestModel
     addServer("Denver", "http", "192.168.100.36", 8000);
     addServer("Seattle", "http", "192.168.100.37", 8000);
     */
-    addServer("Home", "http", "localhost", 8000);
+    addServer("Home", "http", "localhost", 8080);
     addServer("Phoenix", "http", "192.168.1.182", 8000);
-
+    addServer("BMC-AZ", "http", "192.168.100.33", 8000);
+    addServer("BMC-NM", "http", "10.0.0.68", 8000);
     
     /*
 ANTHEM.wav  ASSEMBLY.wav  MESSCALL.wav
