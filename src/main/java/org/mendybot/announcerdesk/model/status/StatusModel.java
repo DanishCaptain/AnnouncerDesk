@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import java.util.UUID;
 
 import org.mendybot.announcer.common.engine.EngineClient;
+import org.mendybot.announcer.common.model.dto.Announcement;
 import org.mendybot.announcer.common.model.dto.Archive;
 import org.mendybot.announcer.common.model.dto.ArchiveResource;
 import org.mendybot.announcer.common.model.dto.Cube;
@@ -17,6 +18,7 @@ public class StatusModel extends TimerTask
   private EngineClient client;
   private ImageModel iModel;
   private SoundModel sModel;
+  private TasksModel tModel;
   private CubeModel cModel;
 
   public StatusModel()
@@ -25,9 +27,10 @@ public class StatusModel extends TimerTask
     client = new EngineClient();
 
     cModel = new CubeModel();
+    tModel = new TasksModel(cModel);
     iModel = new ImageModel(cModel);
     sModel = new SoundModel(cModel);
-    
+
     Timer timer = new Timer(true);
     timer.scheduleAtFixedRate(this, 0, 10*1000);    
   }
@@ -42,11 +45,16 @@ public class StatusModel extends TimerTask
     return sModel;
   }
   
+  public TasksModel getTasksModel()
+  {
+    return tModel;
+  }
+
   public CubeModel getCubeModel()
   {
     return cModel;
   }
-  
+
   @Override
   public void run()
   {
@@ -55,6 +63,8 @@ public class StatusModel extends TimerTask
       StatusResponse r = client.sendStatus();
       List<Cube> cubes = r.getCubes();
 //    System.out.println(cubes);
+      List<Announcement> announcements = r.getAnnouncements();
+//    System.out.println(cubes);
       Archive a = r.getArchive();
       List<ArchiveResource> images = a.getImageFiles();
 //      System.out.println(images);
@@ -62,6 +72,7 @@ public class StatusModel extends TimerTask
 //      System.out.println(sounds);
       iModel.init(images);
       sModel.init(sounds);
+      tModel.init(announcements);
       cModel.init(cubes);
       
     }

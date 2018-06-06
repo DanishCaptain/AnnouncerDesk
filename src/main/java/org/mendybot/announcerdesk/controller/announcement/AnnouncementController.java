@@ -6,6 +6,8 @@ import org.mendybot.announcer.common.model.dto.QuickAnnouncementResponse;
 import org.mendybot.announcer.fault.ExecuteException;
 import org.mendybot.announcerdesk.model.announcement.AnnouncementModel;
 
+import java.util.UUID;
+
 public class AnnouncementController
 {
   public static final String P_IS_ALARM = "is-alarm";
@@ -27,8 +29,12 @@ public class AnnouncementController
   public QuickAnnouncementResponse announceQuick(String text) throws ExecuteException
   {
     QuickAnnouncementRequest request = new QuickAnnouncementRequest();
+    request.setUuid(UUID.randomUUID());
     request.setText(text);
     return send(request);
+  }
+
+  public LongAnnouncementResponse announceLong(String text, Object selectedItem) {
   }
 
   private QuickAnnouncementResponse send(QuickAnnouncementRequest request) throws ExecuteException

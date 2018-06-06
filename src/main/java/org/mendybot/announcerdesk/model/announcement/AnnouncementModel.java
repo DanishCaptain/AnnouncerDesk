@@ -1,15 +1,35 @@
 package org.mendybot.announcerdesk.model.announcement;
 
+import org.mendybot.announcer.common.model.dto.ArchiveResource;
+import org.mendybot.announcerdesk.model.status.ArchiveResourceChangeListener;
+import org.mendybot.announcerdesk.model.status.SoundModel;
+
+import java.util.List;
+
 public class AnnouncementModel
 {
+  private final SoundModel sModel;
 
-  public AnnouncementModel()
+  public AnnouncementModel(SoundModel sModel)
   {
+    this.sModel = sModel;
     init();
   }
 
   private void init()
   {
+  }
+
+  public void addArchiveResourceChangeListener(ArchiveResourceChangeListener lis) {
+    sModel.addArchiveResourceChangeListener(lis);
+  }
+
+  public void removeArchiveResourceChangeListener(ArchiveResourceChangeListener lis) {
+    sModel.removeArchiveResourceChangeListener(lis);
+  }
+
+  public List<ArchiveResource> getSounds() {
+    return sModel.getSounds();
   }
 
   /*

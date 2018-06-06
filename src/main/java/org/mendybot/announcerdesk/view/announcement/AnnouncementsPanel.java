@@ -12,6 +12,7 @@ public class AnnouncementsPanel extends JPanel
   public AnnouncementsPanel(AnnouncementModel model, AnnouncementController controller)
   {
     add(new QuickPanel(model, controller));
+    add(new LongPanel(model, controller));
   }
 
 }
