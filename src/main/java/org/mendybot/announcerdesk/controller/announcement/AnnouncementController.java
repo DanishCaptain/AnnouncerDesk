@@ -1,6 +1,9 @@
 package org.mendybot.announcerdesk.controller.announcement;
 
 import org.mendybot.announcer.common.engine.EngineClient;
+import org.mendybot.announcer.common.model.dto.ArchiveResource;
+import org.mendybot.announcer.common.model.dto.LongAnnouncementRequest;
+import org.mendybot.announcer.common.model.dto.LongAnnouncementResponse;
 import org.mendybot.announcer.common.model.dto.QuickAnnouncementRequest;
 import org.mendybot.announcer.common.model.dto.QuickAnnouncementResponse;
 import org.mendybot.announcer.fault.ExecuteException;
@@ -31,13 +34,24 @@ public class AnnouncementController
     QuickAnnouncementRequest request = new QuickAnnouncementRequest();
     request.setUuid(UUID.randomUUID());
     request.setText(text);
-    return send(request);
+    return sendQuick(request);
   }
 
-  public LongAnnouncementResponse announceLong(String text, Object selectedItem) {
+  public LongAnnouncementResponse announceLong(String displayText, String sayText, ArchiveResource sound) throws ExecuteException {
+    LongAnnouncementRequest request = new LongAnnouncementRequest();
+    request.setUuid(UUID.randomUUID());
+    request.setDisplayText(displayText);
+    request.setSayText(sayText);
+    request.setSound(sound);
+    return sendLong(request);
   }
 
-  private QuickAnnouncementResponse send(QuickAnnouncementRequest request) throws ExecuteException
+  private QuickAnnouncementResponse sendQuick(QuickAnnouncementRequest request) throws ExecuteException
+  {
+    return client.send(request);
+  }
+
+  private LongAnnouncementResponse sendLong(LongAnnouncementRequest request) throws ExecuteException
   {
     return client.send(request);
   }

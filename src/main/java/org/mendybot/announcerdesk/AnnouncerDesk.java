@@ -30,7 +30,7 @@ public class AnnouncerDesk
 
     StatusModel sModel = new StatusModel();
     StatusController sController = new StatusController(sModel);
-    AnnouncementModel aModel = new AnnouncementModel();
+    AnnouncementModel aModel = new AnnouncementModel(sModel.getSoundModel());
     AnnouncementController aController = new AnnouncementController(aModel);
     RequestModel rModel = new RequestModel();
     RequestController rController = new RequestController(rModel);

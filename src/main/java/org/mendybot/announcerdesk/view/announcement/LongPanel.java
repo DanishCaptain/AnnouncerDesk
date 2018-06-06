@@ -10,14 +10,14 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LongPanel extends JPanel implements ActionListener, ArchiveResourceChangeListener
 {
   private static final long serialVersionUID = -2269691964676219777L;
   private final AnnouncementModel model;
-  private JTextField tfMessage = new JTextField(60);
+  private JTextField tfDisplayMessage = new JTextField(60);
+  private JTextField tfSayMessage = new JTextField(60);
   private DefaultComboBoxModel<ArchiveResource> mSounds = new DefaultComboBoxModel<>();
   private JComboBox<ArchiveResource> cbSounds = new JComboBox<>(mSounds);
   private JButton bSend = new JButton("send");
@@ -28,7 +28,8 @@ public class LongPanel extends JPanel implements ActionListener, ArchiveResource
     this.model = model;
     this.controller = controller;
     this.setBorder(new TitledBorder("Long Announcement"));
-    add(tfMessage);
+    add(tfDisplayMessage);
+    add(tfSayMessage);
     add(cbSounds);
     add(bSend);
     bSend.addActionListener(this);
@@ -41,7 +42,7 @@ public class LongPanel extends JPanel implements ActionListener, ArchiveResource
   {
     try
     {
-      controller.announceLong(tfMessage.getText(), cbSounds.getSelectedItem());
+      controller.announceLong(tfDisplayMessage.getText(), tfSayMessage.getText(), (ArchiveResource) cbSounds.getSelectedItem());
     }
     catch (ExecuteException e1)
     {
